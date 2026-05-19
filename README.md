@@ -14,22 +14,6 @@ Proyecto en Java 21 con interfaz Swing, POO, arquitectura modular y un analisis 
 - `src/prueba`: prueba basica
 - `docs`: material de entrega, UML, documento Overleaf y guion de sustentacion
 
-## Compilar en PowerShell
-
-```powershell
-$archivos = Get-ChildItem -Recurse -Path .\src -Filter *.java | ForEach-Object { $_.FullName }
-New-Item -ItemType Directory -Force -Path .\out | Out-Null
-javac -d .\out $archivos
-```
-
-## Ejecutar la aplicacion
-
-```powershell
-java -cp .\out aplicacion.Main
-```
-
-## Ejecutar la prueba basica
-
-```powershell
-java -cp .\out prueba.PruebaBasica
-```
+## Enlace del video:
+ https://drive.google.com/file/d/1uv4344Fw9AqqFyHKVY2GnnP1Yt2hBGyO/view?usp=sharing
+ https://drive.google.com/file/d/1QJ1n9qKelvXq2M0p0ho8H1ml0VE4PK9o/view?usp=sharing
