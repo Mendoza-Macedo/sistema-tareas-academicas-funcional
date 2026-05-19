@@ -1,0 +1,321 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{float}
+
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0pt}
+\onehalfspacing
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+\lstdefinestyle{java}{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    breaklines=true,
+    frame=single
+}
+
+% Reemplazar estos enlaces cuando ya esten publicados.
+\newcommand{\repositorioGithub}{https://github.com/Mendoza-Macedo/sistema-tareas-academicas-funcional}
+\newcommand{\videoSustentacion}{https://drive.google.com/ENLACE-DEL-VIDEO}
+
+\begin{document}
+
+% =========================
+% CARATULA
+% =========================
+\begin{titlepage}
+    \centering
+
+    \begin{minipage}{0.45\textwidth}
+        \raggedright
+        \includegraphics[width=4cm]{unap.png}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \raggedleft
+        \includegraphics[width=4cm]{sistemas.png}
+    \end{minipage}
+
+    \vspace{1.5cm}
+
+    {\Large \textsc{Universidad Nacional del Altiplano}}\\[0.4cm]
+    {\large \textsc{Facultad de Ingenieria Mecanica Electrica,}}\\
+    {\large \textsc{Electronica y Sistemas}}\\[0.6cm]
+    {\Large \textsc{Escuela Profesional de Ingenieria de Sistemas}}\\[1cm]
+
+    \rule{\textwidth}{0.8pt}\\[0.3cm]
+    {\Large \textbf{Titulo del trabajo}}\\[0.3cm]
+    {\Huge \textbf{Sistema de Gestion de Tareas Academicas con Programacion Funcional, POO y Entropia de la Informacion}}\\[0.3cm]
+    \rule{\textwidth}{0.8pt}\\[1.2cm]
+
+    {\Large \textbf{Curso:}}\\
+    {\large LENGUAJES DE PROGRAMACION}\\[1cm]
+
+    \begin{flushleft}
+        \textit{Alumno:}\\
+        - Mendoza Macedo Jose Miguel\\[0.8cm]
+
+        \textit{Actividad:}\\
+        Programacion funcional desde la teoria hasta la practica: diseno UML, implementacion y sustentacion tecnica.
+    \end{flushleft}
+
+    \vfill
+
+    \begin{flushright}
+        \textit{Responsable de asignatura:}\\
+        JUAREZ RUELAS JOSE LUIS
+    \end{flushright}
+
+    \vspace{1cm}
+
+    {\large 2026}
+
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section*{Resumen}
+\addcontentsline{toc}{section}{Resumen}
+
+El presente trabajo desarrolla un sistema de gestion de tareas academicas orientado a estudiantes universitarios. La propuesta integra programacion orientada a objetos para representar entidades del dominio, programacion funcional para transformar y analizar colecciones de actividades, y entropia de la informacion como criterio para interpretar el nivel de desorden academico. La arquitectura separa el modelo, los servicios, la persistencia, la interfaz grafica y el modulo funcional. La implementacion utiliza Java, expresiones lambda, \textit{streams}, funciones puras y composicion funcional para filtrar actividades, medir indicadores y calcular un nivel de entropia bajo, medio o alto. Los resultados muestran que el enfoque hibrido permite conservar los cuatro pilares de la POO y, al mismo tiempo, aplicar reglas funcionales en el procesamiento de datos.
+
+\textbf{Palabras clave:} programacion funcional, Java, programacion orientada a objetos, entropia, tareas academicas, UML.
+
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+
+This work develops an academic task management system for university students. The proposal combines object-oriented programming to represent domain entities, functional programming to transform and analyze activity collections, and information entropy as a criterion to interpret academic disorder. The architecture separates model, services, persistence, graphical interface, and functional modules. The implementation uses Java, lambda expressions, streams, pure functions, and functional composition to filter activities, measure indicators, and calculate a low, medium, or high entropy level. The results show that the hybrid approach preserves the four pillars of OOP while applying functional rules in data processing.
+
+\textbf{Keywords:} functional programming, Java, object-oriented programming, entropy, academic tasks, UML.
+
+\newpage
+
+\section{Introduccion}
+
+La organizacion academica exige registrar cursos, tareas, evaluaciones, fechas de entrega, prioridades y estados de avance. Cuando esta informacion se mantiene dispersa, el estudiante incrementa su incertidumbre sobre que actividad atender primero, que tareas se encuentran vencidas y que carga academica requiere mayor atencion. En este contexto, un sistema computacional puede ayudar a centralizar la informacion y transformarla en indicadores utiles para la toma de decisiones.
+
+La actividad planteada exige aplicar programacion funcional desde la teoria hasta la practica. Por ello, el proyecto no se limita a construir una interfaz de registro, sino que incorpora un nucleo de procesamiento funcional encargado de filtrar, transformar, agrupar y evaluar actividades academicas. Este procesamiento se combina con un modelo orientado a objetos, ya que el dominio academico se representa naturalmente mediante entidades como estudiante, curso y actividad.
+
+El objetivo general del trabajo es implementar un sistema de gestion de tareas academicas en Java que aplique programacion funcional, conserve los principios de la programacion orientada a objetos y utilice entropia de la informacion para estimar el nivel de desorden academico.
+
+La tesis del proyecto sostiene que un diseno hibrido, donde la POO modela el dominio y la programacion funcional procesa los datos, mejora la claridad del sistema y permite calcular indicadores de incertidumbre sin introducir efectos secundarios innecesarios.
+
+\section{Metodologia}
+
+El desarrollo se organizo bajo un enfoque incremental. Primero se identificaron los requerimientos funcionales del sistema. Luego se diseno la arquitectura general mediante diagramas UML. Despues se implementaron las entidades orientadas a objetos y, posteriormente, se agrego un modulo funcional para procesar colecciones de actividades mediante funciones puras, expresiones lambda y operaciones declarativas sobre listas.
+
+\subsection{Requerimientos principales}
+
+El sistema contempla los siguientes requerimientos:
+
+\begin{itemize}
+    \item Registrar cursos academicos.
+    \item Registrar tareas y evaluaciones.
+    \item Asignar prioridad, fecha de entrega y estado.
+    \item Editar y eliminar cursos o actividades.
+    \item Filtrar actividades por curso y prioridad.
+    \item Visualizar actividades en una interfaz grafica.
+    \item Calcular un indicador de entropia academica.
+    \item Guardar y cargar informacion mediante un archivo JSON.
+\end{itemize}
+
+\subsection{Diseno UML}
+
+Como parte del diseno arquitectonico, se elaboraron tres diagramas UML. El primero representa los casos de uso del estudiante dentro del sistema. El segundo describe las clases principales y sus relaciones. El tercero modela el flujo funcional de datos y la composicion de funciones usada para obtener el resultado de entropia.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{casos_uso.png}
+    \caption{Diagrama de casos de uso del sistema de gestion de tareas academicas.}
+    \label{fig:casos-uso}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{clases.png}
+    \caption{Diagrama de clases con entidades POO, servicios y modulo funcional.}
+    \label{fig:clases}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{flujo_funcional.png}
+    \caption{Flujo de datos y composicion funcional para el calculo de entropia academica.}
+    \label{fig:flujo-funcional}
+\end{figure}
+
+\subsection{Arquitectura del sistema}
+
+La arquitectura se divide en paquetes para separar responsabilidades. Esta organizacion facilita el mantenimiento del sistema y permite distinguir claramente que partes pertenecen al modelo orientado a objetos y que partes corresponden al procesamiento funcional.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Modulo} & \textbf{Responsabilidad} \\
+\midrule
+\texttt{modelo} & Representar estudiante, cursos y actividades. \\
+\texttt{servicio} & Gestionar operaciones principales del sistema. \\
+\texttt{funcional} & Filtrar, transformar, agrupar y medir actividades. \\
+\texttt{analisis} & Exponer el calculo de entropia academica. \\
+\texttt{persistencia} & Guardar y cargar datos en formato JSON. \\
+\texttt{vista} & Presentar la interfaz grafica en Swing. \\
+\texttt{prueba} & Verificar el funcionamiento basico del sistema. \\
+\bottomrule
+\end{tabular}
+\caption{Modulos principales de la arquitectura.}
+\label{tab:modulos}
+\end{table}
+
+\section{Fundamento teorico}
+
+\subsection{Programacion orientada a objetos}
+
+La programacion orientada a objetos organiza el software alrededor de entidades con estado y comportamiento. En el proyecto, este paradigma permite representar elementos del dominio academico de forma directa. La abstraccion se evidencia en la clase \texttt{ActividadAcademica}; el encapsulamiento se observa en atributos privados y metodos de acceso; la herencia aparece en \texttt{TareaAcademica} y \texttt{EvaluacionAcademica}; y el polimorfismo se aplica mediante metodos redefinidos como \texttt{getTipoActividad()} y \texttt{getResumenVisual()}.
+
+\subsection{Programacion funcional}
+
+La programacion funcional se basa en el uso de funciones puras, composicion de funciones, inmutabilidad y ausencia de efectos secundarios en la logica de transformacion. En Java, este enfoque puede aplicarse mediante expresiones lambda, interfaces funcionales, \texttt{Stream}, \texttt{map}, \texttt{filter}, \texttt{reduce} y recolectores como \texttt{groupingBy}.
+
+En el proyecto, el paquete \texttt{funcional} concentra esta logica. Las clases \texttt{ActividadFunciones} y \texttt{EntropiaFuncional} reciben listas de actividades, no modifican directamente los objetos recibidos y devuelven nuevos resultados calculados.
+
+\subsection{Entropia de la informacion}
+
+La entropia de la informacion, propuesta por Shannon, permite interpretar el grado de incertidumbre dentro de un conjunto de datos. En este trabajo se adapta el concepto al contexto academico: un estudiante presenta mayor entropia cuando acumula actividades en inicio, tareas en proceso, vencimientos, prioridades altas pendientes o concentracion de entregas en pocos dias.
+
+El resultado se expresa mediante tres niveles:
+
+\begin{itemize}
+    \item \textbf{Entropia baja:} organizacion adecuada y bajo desorden general.
+    \item \textbf{Entropia media:} acumulacion moderada de actividades.
+    \item \textbf{Entropia alta:} desorden academico notable e incertidumbre elevada.
+\end{itemize}
+
+\section{Implementacion}
+
+La implementacion se realizo en Java. El sistema utiliza una interfaz grafica Swing para la interaccion con el usuario, persistencia local en JSON y una prueba basica ejecutable desde consola.
+
+\subsection{Modelo orientado a objetos}
+
+Las clases principales del dominio son \texttt{Estudiante}, \texttt{Curso}, \texttt{ActividadAcademica}, \texttt{TareaAcademica} y \texttt{EvaluacionAcademica}. La clase abstracta \texttt{ActividadAcademica} define atributos comunes como titulo, descripcion, fecha de entrega, prioridad y estado. Las clases hijas representan tipos concretos de actividad.
+
+\subsection{Modulo funcional}
+
+El modulo funcional se ubica en el paquete \texttt{funcional}. La clase \texttt{ActividadFunciones} transforma listas de cursos en listas de actividades, aplica filtros y agrupa actividades por estado. La clase \texttt{EntropiaFuncional} calcula indicadores y produce un resultado interpretable.
+
+Un ejemplo de composicion funcional se muestra a continuacion:
+
+\begin{lstlisting}[style=java]
+Function<List<ActividadAcademica>, List<ActividadAcademica>> flujo =
+        porCurso(cursoId).andThen(porPrioridad(prioridad));
+return flujo.apply(actividades);
+\end{lstlisting}
+
+La medicion de indicadores se realiza con funciones puras y predicados:
+
+\begin{lstlisting}[style=java]
+int vencidas = contar(actividades, ActividadAcademica::estaVencida);
+int altaPendiente = contar(actividades, actividad ->
+        actividad.getPrioridad() == Prioridad.ALTA
+        && actividad.getEstado() != EstadoActividad.FINALIZADO);
+\end{lstlisting}
+
+\subsection{Criterios de entropia academica}
+
+El calculo de entropia usa los siguientes indicadores:
+
+\begin{itemize}
+    \item Cantidad total de actividades.
+    \item Actividades en estado inicio.
+    \item Actividades en proceso.
+    \item Actividades vencidas.
+    \item Actividades de prioridad alta pendientes.
+    \item Actividades completadas.
+    \item Actividades cercanas a vencer.
+    \item Actividades sin fecha definida.
+    \item Concentracion de entregas en una misma fecha.
+\end{itemize}
+
+Estos indicadores se combinan en un puntaje. Segun el resultado, el sistema interpreta la entropia como baja, media o alta.
+
+\section{Resultados}
+
+El sistema permite registrar cursos y actividades academicas, asignar prioridades, controlar estados y visualizar la informacion desde una interfaz grafica. Ademas, el procesamiento funcional permite filtrar actividades por curso y prioridad, contar estados y calcular un nivel de entropia academica.
+
+La prueba basica del sistema valida los siguientes puntos:
+
+\begin{itemize}
+    \item Registro correcto de un curso.
+    \item Registro correcto de dos actividades.
+    \item Filtrado funcional de actividades.
+    \item Calculo funcional de entropia con puntaje positivo.
+\end{itemize}
+
+El comando de prueba usado fue:
+
+\begin{lstlisting}
+java -cp out prueba.PruebaBasica
+\end{lstlisting}
+
+La salida esperada es:
+
+\begin{lstlisting}
+Prueba basica OK
+\end{lstlisting}
+
+\section{Enlaces de entrega}
+
+El codigo fuente del proyecto se encuentra publicado en GitHub:
+
+\begin{center}
+    \url{\repositorioGithub}
+\end{center}
+
+La sustentacion tecnica en video se encuentra disponible en:
+
+\begin{center}
+    \url{\videoSustentacion}
+\end{center}
+
+\section{Conclusiones}
+
+El proyecto demuestra que la programacion funcional puede integrarse de manera coherente en un sistema orientado a objetos. La POO permite representar el dominio academico de forma clara, mientras que la programacion funcional facilita el procesamiento declarativo de actividades mediante funciones puras, expresiones lambda, filtros y composicion.
+
+La incorporacion de entropia de la informacion permite convertir los datos registrados en un indicador de desorden academico. Esto aporta valor practico porque ayuda al estudiante a interpretar su carga de trabajo y priorizar actividades.
+
+Finalmente, el diseno modular y los diagramas UML permiten evidenciar la arquitectura del sistema antes de la implementacion, cumpliendo con el enfoque solicitado en la actividad.
+
+\section{Referencias}
+
+\begin{itemize}
+    \item Bird, R. (2014). \textit{Thinking Functionally with Haskell}. Cambridge University Press.
+    \item Gamma, E., Helm, R., Johnson, R., y Vlissides, J. (1994). \textit{Design Patterns: Elements of Reusable Object-Oriented Software}. Addison-Wesley.
+    \item Oracle. (2024). \textit{Java Platform, Standard Edition Documentation}. Oracle.
+    \item Pressman, R. S., y Maxim, B. R. (2020). \textit{Software Engineering: A Practitioner's Approach}. McGraw-Hill.
+    \item Sebesta, R. W. (2016). \textit{Concepts of Programming Languages}. Pearson.
+    \item Shannon, C. E. (1948). A mathematical theory of communication. \textit{Bell System Technical Journal}, 27(3), 379--423.
+\end{itemize}
+
+\end{document}

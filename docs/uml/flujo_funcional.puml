@@ -1,0 +1,34 @@
+@startuml
+start
+:Recibir lista de cursos;
+:flatMap(curso -> actividades);
+:Ordenar por fecha y titulo;
+:Aplicar filtros compuestos;
+if (Filtro por curso?) then (si)
+  :filter(actividad.cursoId == cursoId);
+endif
+if (Filtro por prioridad?) then (si)
+  :filter(actividad.prioridad == prioridad);
+endif
+:Medir indicadores;
+fork
+  :count estado INICIO;
+fork again
+  :count estado PROCESO;
+fork again
+  :count actividades vencidas;
+fork again
+  :count prioridad ALTA pendiente;
+fork again
+  :groupingBy fechaEntrega;
+end fork
+:reduce indicadores a puntaje;
+if (puntaje <= 4) then (baja)
+  :ResultadoEntropia baja;
+elseif (puntaje <= 10) then (media)
+  :ResultadoEntropia media;
+else (alta)
+  :ResultadoEntropia alta;
+endif
+stop
+@enduml

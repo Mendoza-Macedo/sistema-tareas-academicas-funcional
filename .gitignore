@@ -1,0 +1,15 @@
+out/
+.idea/
+*.iml
+*.class
+*.log
+*.tmp
+*.bak
+
+# Archivos generados por LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.toc
