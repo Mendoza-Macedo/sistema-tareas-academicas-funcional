@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public final class EntropiaFuncional {
     private EntropiaFuncional() {
@@ -71,11 +72,9 @@ public final class EntropiaFuncional {
         int penalizacionAvance = indicadores.total() >= 4
                 && indicadores.completadas() * 1.0 / indicadores.total() < 0.40 ? 2 : 0;
 
-        return puntajeBase
-                + penalizacionSinFecha
-                + penalizacionCercanas
-                + penalizacionConcentracion
-                + penalizacionAvance;
+        return IntStream.of(puntajeBase, penalizacionSinFecha, penalizacionCercanas,
+                        penalizacionConcentracion, penalizacionAvance)
+                .reduce(0, Integer::sum);
     }
 
     public static ResultadoEntropia interpretar(int puntaje) {
